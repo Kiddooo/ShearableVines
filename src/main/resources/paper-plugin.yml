@@ -1,0 +1,7 @@
+name: ShearableVines
+version: '1.0-SNAPSHOT'
+main: dev.kiddo.shearableVines.ShearableVines
+api-version: '1.21'
+authors: [ Kiddooo ]
+description: Makes vines shearable to prevent growth
+website: https://github.com/Kiddooo
