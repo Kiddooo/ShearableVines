@@ -1,7 +1,8 @@
 package dev.kiddo.shearableVines;
 
-import dev.kiddo.shearableVines.events.EventBlockGrow;
+import com.jeff_media.customblockdata.CustomBlockData;
 import dev.kiddo.shearableVines.events.EventItemUse;
+import dev.kiddo.shearableVines.events.VineGrowthHandler;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,8 +20,9 @@ public final class ShearableVines extends JavaPlugin {
         pluginLogger = getLogger();
         SHEARED_KEY = new NamespacedKey(this, "is_sheared");
 
+        CustomBlockData.registerListener(this);
         getServer().getPluginManager().registerEvents(new EventItemUse(), this);
-        getServer().getPluginManager().registerEvents(new EventBlockGrow(), this);
+        getServer().getPluginManager().registerEvents(new VineGrowthHandler(), this);
 
 
     }

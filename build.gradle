@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'com.gradleup.shadow' version '8.3.0'
+    id 'xyz.jpenilla.run-paper' version '2.3.1'
 }
 
 group = 'dev.kiddo'
@@ -19,6 +21,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
+    implementation 'com.jeff-media:custom-block-data:2.2.2'
 }
 
 def targetJavaVersion = 21
@@ -37,6 +40,22 @@ tasks.withType(JavaCompile).configureEach {
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
         options.release.set(targetJavaVersion)
     }
+}
+
+tasks.runServer {
+    minecraftVersion("1.21.1")
+    jvmArgs("-Dcom.mojang.eula.agree=true")
+}
+
+tasks.shadowJar{
+    enableRelocation = true
+    relocationPrefix = "${rootProject.property('group')}.${rootProject.property('name').toString().toLowerCase()}.lib"
+    minimize()
+    archiveClassifier.set("")
+}
+
+tasks.build{
+    dependsOn("shadowJar")
 }
 
 processResources {
